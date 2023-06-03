@@ -11,65 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const discord_js_1 = require("discord.js");
+const randomQuote_1 = require("./randomQuote");
+const randomChaos_1 = require("./randomChaos");
+const randomPet_1 = require("./randomPet");
 const client = new discord_js_1.Client({
     intents: [discord_js_1.IntentsBitField.Flags.MessageContent, discord_js_1.IntentsBitField.Flags.GuildMessages, discord_js_1.IntentsBitField.Flags.Guilds]
 });
-let lastQuoteRefresh = 0;
-let quotes = [];
 client.once("ready", () => __awaiter(void 0, void 0, void 0, function* () {
     console.log("BOT IS ONLINE"); //message when bot is online
-    yield fetchAllQuotes();
-    console.log(quotes.length);
+    yield (0, randomQuote_1.fetchAllQuotes)(client);
+    console.log("QUOTES CACHED");
+    yield (0, randomChaos_1.fetchAllChaosImages)(client);
+    console.log("CHAOS CACHED");
+    yield (0, randomPet_1.fetchAllPetImages)(client);
+    console.log("PETS CACHED");
 }));
 client.on('messageCreate', (messages) => {
-    randomQuote(messages);
+    (0, randomQuote_1.randomQuote)(messages, client);
+    (0, randomChaos_1.randomChaos)(messages, client);
+    (0, randomPet_1.randomPet)(messages, client);
 });
 client.login(process.env.TOKEN);
-function randomQuote(messages) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (messages.content.toLowerCase() === "random-quote") {
-            yield fetchAllQuotes();
-            let randomQuote = Math.round(Math.random() * quotes.length);
-            messages.reply(quotes[randomQuote]);
-        }
-    });
-}
-function fetchAllQuotes() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const channel = client.channels.cache.get("880187045119680532");
-        let lastQuoteDate;
-        let quoteGetter = 0;
-        let stop = 0;
-        // Create message pointer
-        let message = yield channel.messages
-            .fetch({ limit: 1 })
-            .then(messagePage => (messagePage.size === 1 ? messagePage.at(0) : null));
-        while (message) {
-            if (stop != 0) {
-                lastQuoteRefresh = lastQuoteDate;
-                return;
-            }
-            yield channel.messages
-                .fetch({ limit: 100, before: message.id })
-                .then(messagePage => {
-                messagePage.forEach((msg) => {
-                    if (msg.createdTimestamp < lastQuoteRefresh) {
-                        stop++;
-                        console.log(`${msg.createdTimestamp} < ${lastQuoteRefresh}`);
-                        return;
-                    }
-                    if (msg.content.includes('"')) {
-                        quotes.push(msg.content);
-                    }
-                    if (quoteGetter === 0) {
-                        lastQuoteDate = msg.createdTimestamp;
-                        quoteGetter++;
-                    }
-                });
-                // Update our message pointer to be last message in page of messages
-                message = 0 < messagePage.size ? messagePage.at(messagePage.size - 1) : null;
-            });
-        }
-        lastQuoteRefresh = lastQuoteDate;
-    });
-}
