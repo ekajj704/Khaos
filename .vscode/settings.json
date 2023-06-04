@@ -1,0 +1,24 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        ".gitattributes": true,
+        ".gitignore": true,
+        "LICENSE": true,
+        "package-lock.json": true,
+        "package.json": true,
+        "tsconfig.json": true
+    },
+    "hide-files.files": [
+        ".gitattributes",
+        ".gitignore",
+        "LICENSE",
+        "package-lock.json",
+        "package.json",
+        "tsconfig.json"
+    ]
+}
