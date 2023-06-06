@@ -3,12 +3,10 @@ import Discord from "discord.js";
 let petURLS : string[] = [];
 let lastImageRefresh = 0;
 
-export async function randomPet(msg: Discord.Message, client: Discord.Client) {
-    if(msg.content.toLowerCase() === "random-pet"){
-        fetchAllPetImages(client);
+export async function randomPet(interaction: Discord.ChatInputCommandInteraction, client: Discord.Client) {
+        await fetchAllPetImages(client);
         let petImage = Math.round(Math.random() * petURLS.length);
-        msg.reply(petURLS[petImage]);
-    }
+        interaction.reply(petURLS[petImage]);
 }
 
 export async function fetchAllPetImages(client: Discord.Client){

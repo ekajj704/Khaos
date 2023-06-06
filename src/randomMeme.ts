@@ -3,12 +3,12 @@ import Discord from "discord.js";
 let memeURLS : string[] = [];
 let lastImageRefresh = 0;
 
-export async function randomMeme(msg: Discord.Message, client: Discord.Client) {
-    if(msg.content.toLowerCase() === "random-meme"){
+export async function randomMeme(interaction: Discord.ChatInputCommandInteraction, client: Discord.Client) {
+    
         fetchAllMemeImages(client);
         let memeImage = Math.round(Math.random() * memeURLS.length);
-        msg.reply(memeURLS[memeImage]);
-    }
+        interaction.reply(memeURLS[memeImage]);
+    
 }
 
 export async function fetchAllMemeImages(client: Discord.Client){

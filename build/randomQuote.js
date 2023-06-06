@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllQuotes = exports.randomQuote = void 0;
 let lastQuoteRefresh = 0;
 let quotes = [];
-function randomQuote(messages, client) {
+function randomQuote(interaction, client) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (messages.content.toLowerCase() === "random-quote") {
-            yield fetchAllQuotes(client);
-            let randomQuote = Math.round(Math.random() * quotes.length);
-            messages.reply(quotes[randomQuote]);
-        }
+        yield fetchAllQuotes(client);
+        let randomQuote = Math.round(Math.random() * quotes.length);
+        interaction.reply(quotes[randomQuote]);
     });
 }
 exports.randomQuote = randomQuote;

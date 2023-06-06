@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllMemeImages = exports.randomMeme = void 0;
 let memeURLS = [];
 let lastImageRefresh = 0;
-function randomMeme(msg, client) {
+function randomMeme(interaction, client) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (msg.content.toLowerCase() === "random-meme") {
-            fetchAllMemeImages(client);
-            let memeImage = Math.round(Math.random() * memeURLS.length);
-            msg.reply(memeURLS[memeImage]);
-        }
+        fetchAllMemeImages(client);
+        let memeImage = Math.round(Math.random() * memeURLS.length);
+        interaction.reply(memeURLS[memeImage]);
     });
 }
 exports.randomMeme = randomMeme;

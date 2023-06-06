@@ -3,14 +3,13 @@ import Discord from "discord.js";
 let lastQuoteRefresh: number = 0;
 let quotes: string[] = [];
 
-export async function randomQuote(messages: Discord.Message, client: Discord.Client){
-    if(messages.content.toLowerCase() === "random-quote"){
+export async function randomQuote(interaction: Discord.ChatInputCommandInteraction, client: Discord.Client){
         await fetchAllQuotes(client);
         
 
         let randomQuote = Math.round(Math.random() * quotes.length);
-        messages.reply(quotes[randomQuote]);
-    }
+        interaction.reply(quotes[randomQuote]);
+    
 }
 
 export async function fetchAllQuotes(client: Discord.Client){

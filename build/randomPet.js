@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllPetImages = exports.randomPet = void 0;
 let petURLS = [];
 let lastImageRefresh = 0;
-function randomPet(msg, client) {
+function randomPet(interaction, client) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (msg.content.toLowerCase() === "random-pet") {
-            fetchAllPetImages(client);
-            let petImage = Math.round(Math.random() * petURLS.length);
-            msg.reply(petURLS[petImage]);
-        }
+        yield fetchAllPetImages(client);
+        let petImage = Math.round(Math.random() * petURLS.length);
+        interaction.reply(petURLS[petImage]);
     });
 }
 exports.randomPet = randomPet;
