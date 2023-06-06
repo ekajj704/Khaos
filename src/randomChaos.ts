@@ -3,12 +3,10 @@ import Discord from "discord.js";
 let chaosURLS : string[] = [];
 let lastImageRefresh = 0;
 
-export async function randomChaos(msg: Discord.Message, client: Discord.Client) {
-    if(msg.content.toLowerCase() === "random-chaos"){
+export async function randomChaos(interaction: Discord.RepliableInteraction, client: Discord.Client) {
         fetchAllChaosImages(client);
         let chaosImage = Math.round(Math.random() * chaosURLS.length);
-        msg.reply(chaosURLS[chaosImage]);
-    }
+        await interaction.reply(chaosURLS[chaosImage]);
 }
 
 export async function fetchAllChaosImages(client: Discord.Client){

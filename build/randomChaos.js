@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllChaosImages = exports.randomChaos = void 0;
 let chaosURLS = [];
 let lastImageRefresh = 0;
-function randomChaos(msg, client) {
+function randomChaos(interaction, client) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (msg.content.toLowerCase() === "random-chaos") {
-            fetchAllChaosImages(client);
-            let chaosImage = Math.round(Math.random() * chaosURLS.length);
-            msg.reply(chaosURLS[chaosImage]);
-        }
+        fetchAllChaosImages(client);
+        let chaosImage = Math.round(Math.random() * chaosURLS.length);
+        yield interaction.reply(chaosURLS[chaosImage]);
     });
 }
 exports.randomChaos = randomChaos;
