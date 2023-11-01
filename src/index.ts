@@ -14,14 +14,14 @@ export const client=new Client({
 
 client.once("ready", async() =>{
     console.log("BOT IS READY TO KILL"); //message when bot is online
-    /*await fetchAllQuotes(client);
+    await fetchAllQuotes(client);
     console.log("QUOTES FILED FOR CRIMINAL CASES");
     await fetchAllChaosImages(client);
     console.log("CHAOS RUNNING RAMPANT");
     await fetchAllPetImages(client);
     console.log("PETS PETTED");
     await fetchAllMemeImages(client);
-    console.log("MEMES STOLEN");*/
+    console.log("MEMES STOLEN");
     
 })
 
