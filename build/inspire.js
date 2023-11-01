@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Inspire = void 0;
-const node_fetch_1 = __importDefault(require("node-fetch"));
+const axios_1 = __importDefault(require("axios"));
 function Inspire(interaction, client) {
     return __awaiter(this, void 0, void 0, function* () {
-        let url = yield (0, node_fetch_1.default)("http://inspirobot.me/api?generate=true");
-        interaction.reply(yield url.text());
+        let url = yield (yield axios_1.default.get("http://inspirobot.me/api?generate=true")).data;
+        interaction.reply(yield url);
     });
 }
 exports.Inspire = Inspire;
