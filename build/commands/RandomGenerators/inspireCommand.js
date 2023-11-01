@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const randomQuote_1 = require("../randomQuote");
+const inspire_1 = require("../../inspire");
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
-        .setName("quote")
-        .setDescription("Generates a quote from the quotes channel"),
+        .setName("inspire")
+        .setDescription("Generates a random inspirational quote"),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, randomQuote_1.randomQuote)(interaction, interaction.client);
+            yield (0, inspire_1.Inspire)(interaction, interaction.client);
         });
     }
 };

@@ -8,20 +8,20 @@ import fs from "node:fs";
 import path from "node:path";
 
 
-const client=new Client({
-    intents:[IntentsBitField.Flags.MessageContent, IntentsBitField.Flags.GuildMessages, IntentsBitField.Flags.Guilds]
+export const client=new Client({
+    intents:[IntentsBitField.Flags.MessageContent, IntentsBitField.Flags.GuildMessages, IntentsBitField.Flags.Guilds, IntentsBitField.Flags.DirectMessages],
 });
 
 client.once("ready", async() =>{
     console.log("BOT IS READY TO KILL"); //message when bot is online
-    await fetchAllQuotes(client);
+    /*await fetchAllQuotes(client);
     console.log("QUOTES FILED FOR CRIMINAL CASES");
     await fetchAllChaosImages(client);
     console.log("CHAOS RUNNING RAMPANT");
     await fetchAllPetImages(client);
     console.log("PETS PETTED");
     await fetchAllMemeImages(client);
-    console.log("MEMES STOLEN");
+    console.log("MEMES STOLEN");*/
     
 })
 
@@ -29,17 +29,21 @@ client.login(process.env.TOKEN);
 
 let commands: Collection<string, any> = new Collection<string, any>;
 
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
 
-for (const file of commandFiles) {
-	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	// Set a new item in the Collection with the key as the command name and the value as the exported module
-	if ('data' in command && 'execute' in command) {
-		commands.set(command.data.name, command);
-	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+for (const folder of commandFolders) {
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
+		// Set a new item in the Collection with the key as the command name and the value as the exported module
+		if ('data' in command && 'execute' in command) {
+			commands.set(command.data.name, command);
+		} else {
+			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		}
 	}
 }
 

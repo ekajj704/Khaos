@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const randomChaos_1 = require("../randomChaos");
+const randomMeme_1 = require("../../randomMeme");
 module.exports = {
     data: new discord_js_1.SlashCommandBuilder()
-        .setName("chaos")
-        .setDescription("Generates a random image from chaos-montage"),
+        .setName("meme")
+        .setDescription("Generates a random image from memes"),
     execute(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, randomChaos_1.randomChaos)(interaction, interaction.client);
+            yield (0, randomMeme_1.randomMeme)(interaction, interaction.client);
         });
     }
 };

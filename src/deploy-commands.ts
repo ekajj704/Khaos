@@ -3,15 +3,19 @@ const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const clientId = process.env.APPID;
-const guildId = process.env.SERVERID;
-const token = process.env.TOKEN;
+let clientId = process.env.APPID;
+let guildId = process.env.SERVERID;
+let token = process.env.TOKEN;
 
 const commands = [];
 // Grab all the command files from the commands directory you created earlier
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter((file: any) => file.endsWith('.js'));
+const foldersPath = path.join(__dirname, 'commands');
+const commandFolders = fs.readdirSync(foldersPath);
 
+for (const folder of commandFolders) {
+	// Grab all the command files from the commands directory you created earlier
+	const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter((file: any) => file.endsWith('.js'));
 	// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 	for (const file of commandFiles) {
 		const filePath = path.join(commandsPath, file);
@@ -22,6 +26,7 @@ const commandFiles = fs.readdirSync(commandsPath).filter((file: any) => file.end
 			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
+}
 
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(token);
@@ -43,3 +48,4 @@ const rest = new REST().setToken(token);
 		console.error(error);
 	}
 })();
+

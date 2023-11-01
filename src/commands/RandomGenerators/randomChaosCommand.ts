@@ -1,11 +1,11 @@
 import { ChatInputCommandInteraction, Interaction, SlashCommandBuilder } from "discord.js";
-import { randomPet } from "../randomPet";
+import { randomChaos } from "../../randomChaos";
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("pet")
-        .setDescription("Generates a random image from the pets channel"),
+        .setName("chaos")
+        .setDescription("Generates a random image from chaos-montage"),
     async execute(interaction: ChatInputCommandInteraction){
-        await randomPet(interaction, interaction.client);
+        await randomChaos(interaction, interaction.client);
     }
 }
