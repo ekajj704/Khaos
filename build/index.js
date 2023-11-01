@@ -15,6 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.client = void 0;
 require("dotenv").config();
 const discord_js_1 = require("discord.js");
+const randomQuote_1 = require("./randomQuote");
+const randomChaos_1 = require("./randomChaos");
+const randomPet_1 = require("./randomPet");
+const randomMeme_1 = require("./randomMeme");
 const node_fs_1 = __importDefault(require("node:fs"));
 const node_path_1 = __importDefault(require("node:path"));
 exports.client = new discord_js_1.Client({
@@ -22,14 +26,14 @@ exports.client = new discord_js_1.Client({
 });
 exports.client.once("ready", () => __awaiter(void 0, void 0, void 0, function* () {
     console.log("BOT IS READY TO KILL"); //message when bot is online
-    /*await fetchAllQuotes(client);
+    yield (0, randomQuote_1.fetchAllQuotes)(exports.client);
     console.log("QUOTES FILED FOR CRIMINAL CASES");
-    await fetchAllChaosImages(client);
+    yield (0, randomChaos_1.fetchAllChaosImages)(exports.client);
     console.log("CHAOS RUNNING RAMPANT");
-    await fetchAllPetImages(client);
+    yield (0, randomPet_1.fetchAllPetImages)(exports.client);
     console.log("PETS PETTED");
-    await fetchAllMemeImages(client);
-    console.log("MEMES STOLEN");*/
+    yield (0, randomMeme_1.fetchAllMemeImages)(exports.client);
+    console.log("MEMES STOLEN");
 }));
 exports.client.login(process.env.TOKEN);
 let commands = new discord_js_1.Collection;
